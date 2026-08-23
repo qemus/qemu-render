@@ -2,7 +2,7 @@
 
 FROM debian:trixie-slim AS builder
 
-ARG MESA_VERSION="25.0.7"
+ARG MESA_VERSION="26.1.6"
 ARG VIRGL_VERSION="1.3.0"
 ARG SPICE_VERSION="0.16.0"
 
@@ -162,7 +162,6 @@ RUN <<'EOF_MESA'
     -Dgallium-rusticl=false \
     -Dgallium-va=disabled \
     -Dgallium-vdpau=disabled \
-    -Dgallium-xa=disabled \
     -Dgles1=disabled \
     -Dgles2=disabled \
     -Dglvnd=enabled \
