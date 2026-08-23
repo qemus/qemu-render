@@ -47,8 +47,6 @@ The Mesa portion contains:
 - RADV with ACO for AMD Vulkan-capable GPUs
 - EGL and GBM for headless rendering
 
-Mesa's legacy `i915` Gallium driver is not included because it requires LLVM in the final runtime. Intel 915/945/G33/Q33/Q35/Pineview GPUs (for example GMA 900, 950, 3100, and 3150) that require this driver are therefore not supported. This does not affect virglrenderer's separate Intel `i915-experimental` native DRM context backend.
-
 The Vulkan build contains only the Intel and AMD hardware ICDs needed for this project; Lavapipe and optional Vulkan layers are not included. Intel ray tracing is disabled to avoid the separate Intel CLC/ray-tracing compiler path. Debian's small `libvulkan1` loader is used at runtime.
 
 LLVM is available only while compiling Mesa build-time tools. The final OpenGL and Vulkan runtime is built with both `-Dllvm=disabled` and `-Damd-use-llvm=false`, and the finished package is verified to contain no direct or transitive LLVM runtime dependency.
