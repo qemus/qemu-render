@@ -15,7 +15,7 @@ Run QEMU hardware-accelerated graphics on headless Debian hosts without installi
 
 - Designed for headless Debian hosts with no Xorg server or desktop environment
 - Hardware-accelerated EGL and GBM rendering through Mesa on Intel and AMD GPUs
-- Supports the Mesa `i915`, `crocus`, `iris`, `r600`, and `radeonsi` Gallium drivers
+- Supports the Mesa `crocus`, `iris`, `r600`, and `radeonsi` Gallium drivers
 - Hardware Vulkan through Mesa ANV and HasVK on Intel GPUs and RADV/ACO on AMD GPUs
 - Custom virglrenderer with VirGL, Venus, and `virgl_render_server` support
 - Native DRM context support for AMDGPU and Intel i915
@@ -38,7 +38,6 @@ It also provides the virtual `vulkan-icd` package and conflicts with/replaces De
 
 The Mesa portion contains:
 
-- `i915` for older Intel GPUs
 - `crocus` for older Intel generations supported by Gallium Crocus
 - `iris` for newer Intel GPUs
 - `r600` for older AMD Radeon GPUs based on TeraScale
@@ -47,6 +46,8 @@ The Mesa portion contains:
 - HasVK for older Intel Vulkan-capable GPUs
 - RADV with ACO for AMD Vulkan-capable GPUs
 - EGL and GBM for headless rendering
+
+Mesa's legacy `i915` Gallium driver is not included because it requires LLVM in the final runtime. Intel 915/945/G33/Q33/Q35/Pineview GPUs (for example GMA 900, 950, 3100, and 3150) that require this driver are therefore not supported. This does not affect virglrenderer's separate Intel `i915-experimental` native DRM context backend.
 
 The Vulkan build contains only the Intel and AMD hardware ICDs needed for this project; Lavapipe and optional Vulkan layers are not included. Intel ray tracing is disabled to avoid the separate Intel CLC/ray-tracing compiler path. Debian's small `libvulkan1` loader is used at runtime.
 
