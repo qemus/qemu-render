@@ -159,7 +159,6 @@ RUN <<'EOF_MESA'
     -Dgallium-drivers=i915,crocus,iris,r600,radeonsi \
     -Dgallium-rusticl=false \
     -Dgallium-va=disabled \
-    -Dgallium-vdpau=disabled \
     -Dgles1=disabled \
     -Dgles2=disabled \
     -Dglvnd=enabled \
