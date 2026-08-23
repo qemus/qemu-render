@@ -156,7 +156,7 @@ RUN <<'EOF_MESA'
     -Degl=enabled \
     -Degl-native-platform=drm \
     -Dgbm=enabled \
-    -Dgallium-drivers=i915,crocus,iris,r600,radeonsi \
+    -Dgallium-drivers=crocus,iris,r600,radeonsi \
     -Dgallium-rusticl=false \
     -Dgallium-va=disabled \
     -Dgles1=disabled \
@@ -405,7 +405,7 @@ Replaces: libgbm1, libegl-mesa0, libspice-server1, libvirglrenderer1, mesa-vulka
 Installed-Size: ${installed_size}
 Homepage: https://github.com/qemus/qemu-render
 Description: Minimal graphics runtime for QEMU
- Provides an Intel and AMD Mesa runtime supporting i915, Crocus, Iris, r600,
+ Provides an Intel and AMD Mesa runtime supporting Crocus, Iris, r600,
  RadeonSI, ANV, HasVK and RADV together with EGL, GBM and Vulkan, a minimal SPICE
  server runtime for QXL, and a VirGL/Venus renderer with AMDGPU and Intel i915 DRM
  native contexts, the Venus render server and device-memory budgeting, without LLVM,
