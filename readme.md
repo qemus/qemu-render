@@ -7,9 +7,9 @@
 
 </div></h1>
 
-Run QEMU OpenGL and Vulkan/Venus on headless Debian hosts without installing an Xorg server or desktop environment.
+Run QEMU hardware-accelerated graphics on headless Debian hosts without installing an Xorg server or desktop environment.
 
-`qemu-render` provides the host-side Mesa OpenGL/Vulkan and VirGL/Venus runtime used by QEMU. It keeps hardware-accelerated EGL/GBM rendering, hardware Vulkan, and VirGL/Venus available on servers, containers, and appliance-style systems while leaving out runtime components that are unnecessary for this use case.
+`qemu-render` provides the host-side Mesa and virglrenderer runtime used by QEMU for OpenGL, Vulkan/Venus, and native DRM contexts. It keeps hardware-accelerated EGL/GBM rendering, hardware Vulkan, VirGL/Venus, and AMDGPU/i915 native-context support available on servers, containers, and appliance-style systems while leaving out runtime components that are unnecessary for this use case.
 
 ## Features ✨
 
@@ -18,6 +18,7 @@ Run QEMU OpenGL and Vulkan/Venus on headless Debian hosts without installing an 
 - Supports the Mesa `i915`, `crocus`, `iris`, `r600`, and `radeonsi` Gallium drivers
 - Hardware Vulkan through Mesa ANV and HasVK on Intel GPUs and RADV/ACO on AMD GPUs
 - Custom virglrenderer with VirGL, Venus, and `virgl_render_server` support
+- Native DRM context support for AMDGPU and Intel i915
 - QXL support through a reduced SPICE server runtime for QEMU's VNC display path
 
 ## Package design 📦
@@ -55,11 +56,14 @@ LLVM is available only while compiling Mesa build-time tools. The final OpenGL a
 
 The virglrenderer portion provides `libvirglrenderer.so.1` for QEMU's normal VirGL path and also builds Venus support together with `virgl_render_server`.
 
+It additionally enables the AMDGPU and Intel i915 native DRM renderers, allowing QEMU to expose native DRM contexts to compatible Linux guests.
+
 The renderer is built with:
 
 ```text
 -Dplatforms=egl
 -Dvenus=true
+-Ddrm-renderers=amdgpu-experimental,i915-experimental
 -Drender-server-worker=thread
 -Dunstable-apis=true
 -Dtests=false
@@ -67,6 +71,8 @@ The renderer is built with:
 ```
 
 The `thread` worker setting applies to the external render-server path used by Venus; it does not change QEMU's normal in-process VirGL renderer. Thread workers are used so all Venus contexts in the render-server process share the device-memory budget accounting.
+
+The native-context backends use virglrenderer's upstream `amdgpu-experimental` and `i915-experimental` renderer options.
 
 ## Stars 🌟
 [![Stargazers](https://raw.githubusercontent.com/star-stats/stars/refs/heads/data/charts/qemus-qemu-render.svg)](https://github.com/qemus/qemu-render/stargazers)
