@@ -132,10 +132,10 @@ RUN <<'EOF_TOOLS'
     -Dplatforms=[] \
     -Dvulkan-drivers=[]
 
-  meson compile -C /build-tools mesa_clc vtn_bindgen
+  meson compile -C /build-tools mesa_clc vtn_bindgen2
 
   install -Dm755 /build-tools/src/compiler/clc/mesa_clc /usr/local/bin/mesa_clc
-  install -Dm755 /build-tools/src/compiler/spirv/vtn_bindgen /usr/local/bin/vtn_bindgen
+  install -Dm755 /build-tools/src/compiler/spirv/vtn_bindgen2 /usr/local/bin/vtn_bindgen2
 EOF_TOOLS
 
 # Build the Intel and AMD Gallium and hardware Vulkan drivers needed for broad
@@ -157,8 +157,6 @@ RUN <<'EOF_MESA'
     -Degl-native-platform=drm \
     -Dgbm=enabled \
     -Dgallium-drivers=i915,crocus,iris,r600,radeonsi \
-    -Dgallium-nine=false \
-    -Dgallium-opencl=disabled \
     -Dgallium-rusticl=false \
     -Dgallium-va=disabled \
     -Dgallium-vdpau=disabled \
