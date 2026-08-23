@@ -215,9 +215,9 @@ RUN <<'EOF_MESA'
   ' sh {} +
 EOF_MESA
 
-# Build virglrenderer with both the normal VirGL renderer and Venus render-server
-# support. The downstream patches only affect the Venus/proxy paths; normal VirGL
-# remains the default unless QEMU explicitly enables Venus.
+# Build virglrenderer with the normal VirGL renderer, Venus render-server support,
+# and native DRM contexts for AMDGPU and Intel i915. The downstream patches only
+# affect the Venus/proxy paths; normal VirGL remains available alongside them.
 RUN <<'EOF_VIRGL'
   set -eu
 
@@ -230,6 +230,7 @@ RUN <<'EOF_VIRGL'
     --libexecdir=libexec \
     -Dplatforms=egl \
     -Dvenus=true \
+    -Ddrm-renderers=amdgpu-experimental,i915-experimental \
     -Drender-server-worker=thread \
     -Dunstable-apis=true \
     -Dtests=false \
@@ -410,9 +411,9 @@ Homepage: https://github.com/qemus/qemu-render
 Description: Minimal graphics runtime for QEMU
  Provides an Intel and AMD Mesa runtime supporting i915, Crocus, Iris, r600,
  RadeonSI, ANV, HasVK and RADV together with EGL, GBM and Vulkan, a minimal SPICE
- server runtime for QXL, and a VirGL/Venus renderer with the Venus render server
- and device-memory budgeting, without LLVM, GStreamer, Opus, SASL, smartcard or
- optional compression runtimes.
+ server runtime for QXL, and a VirGL/Venus renderer with AMDGPU and Intel i915 DRM
+ native contexts, the Venus render server and device-memory budgeting, without LLVM,
+ GStreamer, Opus, SASL, smartcard or optional compression runtimes.
 EOF_CONTROL
 
   echo
