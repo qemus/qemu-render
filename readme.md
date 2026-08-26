@@ -35,7 +35,7 @@ libvirglrenderer1
 It also provides the virtual `vulkan-icd` package and conflicts with/replaces Debian's `mesa-vulkan-drivers`, because `qemu-render` ships its own Intel and AMD Vulkan ICDs. It conflicts with/replaces `virgl-server` for the same reason around `virgl_render_server`. On a headless host, this lets Debian's official QEMU modules satisfy their normal runtime dependencies without installing the broader stock Mesa Gallium/Vulkan/LLVM and SPICE multimedia runtime stacks.
 
 > [!WARNING]
-> Installing this package on a desktop, workstation, or any host that relies on the stock Mesa stack can remove or replace those packages and may break host graphics. Do not install it on such systems unless you fully understand and accept these package changes.
+> Installing this package on a desktop, workstation, or any host that relies on the stock Mesa stack can remove or replace those packages and may break host graphics. Do not install it on such systems unless you fully understand and accept this risk.
 
 ## Mesa runtime 🎨
 
